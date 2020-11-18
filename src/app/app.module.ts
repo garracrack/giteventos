@@ -7,6 +7,7 @@ import { EventFilterPipe } from './pipes/event-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { EventoItemComponent } from './evento-item/evento-item.component';
 import { EventoAddComponent } from './evento-add/evento-add.component';
+import { HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EventoAddComponent } from './evento-add/evento-add.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

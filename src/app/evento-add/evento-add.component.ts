@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IEvento } from '../interfaces/i-evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'evento-add',
@@ -19,21 +20,29 @@ export class EventoAddComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(private eventoServicio: EventoService) { }
 
   ngOnInit(): void {
   }
 
   addEvento(){
     //this.eventos.push(this.newEvento);
-    this.insertame.emit(this.newEvento);
-    this.newEvento={
-      title:"",
-      description:"",
-      image:"",
-      price:0,
-      date:""
-    }
+    //this.insertame.emit(this.newEvento);
+
+    this.eventoServicio.addEvento(this.newEvento).subscribe(
+      eventoResp => {
+          this.insertame.emit(eventoResp.evento);
+          this.newEvento={
+            title:"",
+            description:"",
+            image:"",
+            price:0,
+            date:""
+          };
+      }
+    );
+
+
 
   }
 

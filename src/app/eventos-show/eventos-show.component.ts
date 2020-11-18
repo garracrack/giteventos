@@ -15,7 +15,12 @@ export class EventosShowComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.eventos=this.eventosService.getEventos();
+    //this.eventos=this.eventosService.getEventos();
+    this.eventosService.getEventos().subscribe(
+      respEventos => this.eventos=respEventos.eventos,
+      error => console.log(error),
+      () => console.log("Finalizada la carga de eventos")
+    );
   }
 
   ngOnDestroy(): void {

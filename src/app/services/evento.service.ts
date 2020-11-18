@@ -1,29 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IEvento } from '../interfaces/i-evento';
+import { map } from 'rxjs/operators'
+import { EventoResponse, EventosResponse } from '../interfaces/respuestas';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventoService {
+  private eventoURL:string="http://curso.i234.me:8080/eventos"
+  constructor(private http:HttpClient) { }
 
-  constructor() { }
-
-  getEventos():IEvento[]{
-    return [
-        {
-          title: 'Evento de prueba',
-          description: 'Nos lo pasaremos genial',
-          date: '2021-03-15',
-          image: 'assets/evento1.jpg',
-          price: 23.95
-        }, {
-          title: 'Evento de prueba 2',
-          description: 'Este es peor',
-          date: '2020-08-14',
-          image: 'assets/evento2.jpg',
-          price: 15.5
-        }
-    ];
+  /*getEventos(): Observable <IEvento[]>{
+    return this.http.get<EventosResponse>(this.eventoURL).pipe(
+      map(res=>res.eventos)
+    );
+  }*/
+  getEventos(): Observable <EventosResponse>{
+    return this.http.get<EventosResponse>(this.eventoURL);
   }
+
+  addEvento(evento: IEvento):Observable<EventoResponse>{
+    return this.http.post<EventoResponse>(this.eventoURL,evento);
+  }
+
+  deleteEvento(idEvento: number):Observable<EventoResponse>{
+    return this.http.delete<EventoResponse>(this.eventoURL+"/"+idEvento);
+  }
+
 
 }

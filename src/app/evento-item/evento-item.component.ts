@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IEvento } from '../interfaces/i-evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'evento-item',
@@ -12,12 +13,20 @@ export class EventoItemComponent implements OnInit {
 
   @Output() borrame = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private servicios:EventoService) { }
 
   ngOnInit(): void {
   }
 
   deleteEvento(){
-    this.borrame.emit();
+    this.servicios.deleteEvento(this.eventoHijo.id).subscribe(
+      eventResp => {
+        console.log("El servido ha borrado "+eventResp.evento+" fila");
+        if(eventResp.ok)
+          this.borrame.emit();
+      },
+      error => console.log(error)
+    )
+    //this.borrame.emit();
   }
 }
