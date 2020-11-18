@@ -5,12 +5,16 @@ import { AppComponent } from './app.component';
 import { EventosShowComponent } from './eventos-show/eventos-show.component';
 import { EventFilterPipe } from './pipes/event-filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { EventoItemComponent } from './evento-item/evento-item.component';
+import { EventoAddComponent } from './evento-add/evento-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventosShowComponent,
-    EventFilterPipe
+    EventFilterPipe,
+    EventoItemComponent,
+    EventoAddComponent
   ],
   imports: [
     BrowserModule,

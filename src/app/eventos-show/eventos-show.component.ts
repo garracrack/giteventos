@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IEvento } from '../interfaces/i-evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'eventos-show',
@@ -7,33 +8,14 @@ import { IEvento } from '../interfaces/i-evento';
   styleUrls: ['./eventos-show.component.css']
 })
 export class EventosShowComponent implements OnInit, OnDestroy {
-  public eventos:IEvento[]=[
-    {
-      title: 'Evento de prueba',
-      description: 'Nos lo pasaremos genial',
-      date: '2021-03-15',
-      image: 'assets/evento1.jpg',
-      price: 23.95
-    }, {
-      title: 'Evento de prueba 2',
-      description: 'Este es peor',
-      date: '2020-08-14',
-      image: 'assets/evento2.jpg',
-      price: 15.5
-    }
-  ];
+  public eventos:IEvento[]=[];
   filtroBusqueda:string="";
-  constructor() { }
+  constructor(private eventosService:EventoService) { }
 
-  newEvento:IEvento={
-    title:"",
-    description:"",
-    image:"",
-    price:0,
-    date:""
-  }
+
 
   ngOnInit(): void {
+    this.eventos=this.eventosService.getEventos();
   }
 
   ngOnDestroy(): void {
@@ -53,28 +35,14 @@ export class EventosShowComponent implements OnInit, OnDestroy {
     evento1.price < evento2.price ? -1 : 1);
   }
 
-  addEvento(){
-    this.eventos.push(this.newEvento);
-
-    this.newEvento={
-      title:"",
-      description:"",
-      image:"",
-      price:0,
-      date:""
-    }
-
+  eliminarEvento(evento: IEvento){
+    this.eventos=this.eventos.filter(e => e!=evento);
   }
 
-  changeImage(fileInput: HTMLInputElement) {
-    if (!fileInput.files || fileInput.files.length === 0) { return; }
-
-    const reader: FileReader = new FileReader();
-    reader.readAsDataURL(fileInput.files[0]);
-    reader.addEventListener('loadend', e => {
-      this.newEvento.image = reader.result.toString();
-    });
+  insertarEvento(evento: IEvento){
+    this.eventos.push(evento);
   }
+
 
 
 }
