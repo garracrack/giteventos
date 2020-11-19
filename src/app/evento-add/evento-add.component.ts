@@ -31,7 +31,11 @@ export class EventoAddComponent implements OnInit {
 
     this.eventoServicio.addEvento(this.newEvento).subscribe(
       eventoResp => {
-          this.insertame.emit(eventoResp.evento);
+
+          if(eventoResp.evento)
+            this.insertame.emit(eventoResp.evento);
+          else
+            this.insertame.emit(this.newEvento);
           this.newEvento={
             title:"",
             description:"",
@@ -39,7 +43,8 @@ export class EventoAddComponent implements OnInit {
             price:0,
             date:""
           };
-      }
+      },
+      error => console.log(error)
     );
 
 
