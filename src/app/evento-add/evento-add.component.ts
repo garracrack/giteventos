@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IEvento } from '../interfaces/i-evento';
 import { EventoService } from '../services/evento.service';
 
@@ -20,7 +21,8 @@ export class EventoAddComponent implements OnInit {
   }
 
 
-  constructor(private eventoServicio: EventoService) { }
+  constructor(private eventoServicio: EventoService,
+              private enrutar: Router) { }
 
   ngOnInit(): void {
   }
@@ -31,18 +33,7 @@ export class EventoAddComponent implements OnInit {
 
     this.eventoServicio.addEvento(this.newEvento).subscribe(
       eventoResp => {
-
-          if(eventoResp.evento)
-            this.insertame.emit(eventoResp.evento);
-          else
-            this.insertame.emit(this.newEvento);
-          this.newEvento={
-            title:"",
-            description:"",
-            image:"",
-            price:0,
-            date:""
-          };
+        this.enrutar.navigate(['/events']);
       },
       error => console.log(error)
     );

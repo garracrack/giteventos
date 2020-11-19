@@ -26,27 +26,26 @@ export class EventosShowComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  orderDate(){
+  orderDate(event){
     this.filtroBusqueda = '';
     this.eventos.sort((evento1, evento2) =>
     evento1.date < evento2.date ? -1 : 1);
+    event.preventDefault();
    // evento1.date.localeCompare(evento2.date));
 
   }
 
-  orderPrice(){
+  orderPrice(event){
     this.filtroBusqueda = '';
     this.eventos.sort((evento1, evento2) =>
     evento1.price < evento2.price ? -1 : 1);
+    event.preventDefault();
   }
 
   eliminarEvento(evento: IEvento){
     this.eventos=this.eventos.filter(e => e!=evento);
   }
 
-  insertarEvento(evento: IEvento){
-    this.eventos.push(evento);
-  }
 
 
 

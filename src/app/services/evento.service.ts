@@ -21,6 +21,10 @@ export class EventoService {
     return this.http.get<EventosResponse>(this.eventoURL);
   }
 
+  getEvento(idEvento: number): Observable<EventoResponse>{
+    return this.http.get<EventoResponse>(this.eventoURL+"/"+idEvento);
+  }
+
   addEvento(evento: IEvento):Observable<EventoResponse>{
     return this.http.post<EventoResponse>(this.eventoURL,evento).pipe(
       map(res=>res),
